@@ -9,7 +9,6 @@
    @endpush
  @section('content')
  <!-- Page content-->
-   @include('components.button', ['val' => 'save'])
     <div class="container mt-5">
       <div class="row">
         <!-- Blog entries-->
