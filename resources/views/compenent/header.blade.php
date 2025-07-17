@@ -1,4 +1,4 @@
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="/index.html">Blog Name</a>
         <button
@@ -36,18 +36,14 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <a class="dropdown-item" href="./admin/category/index.html"
-                    >Category</a
-                  >
+                  <a class="dropdown-item" href="{{Route('category')}}">Category</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="./admin/tag/index.html">Tag</a>
+                  <a class="dropdown-item" href="{{Route('tag')}}">Tag</a>
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="./admin/post/index.html"
-                    >Post</a
-                  >
+                  <a class="dropdown-item" href="{{Route('post')}}">Post</a>
                 </li>
               </ul>
             </li>
@@ -55,3 +51,6 @@
         </div>
       </div>
     </nav>
+
+
+    

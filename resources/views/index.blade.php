@@ -1,15 +1,9 @@
- @extends('layouts.main')
- @section('title', 'Homeblog')
-  @push('styles')
-        <style>
-            .navbar-brand {
-                color: red !important;
-            }
-        </style>
-   @endpush
- @section('content')
+@extends('Layout.main')
+@section('title','First page ')
+
+@section('content')
+ 
  <!-- Page content-->
-   @include('components.button', ['val' => 'save'])
     <div class="container mt-5">
       <div class="row">
         <!-- Blog entries-->
@@ -54,7 +48,7 @@
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Reiciendis aliquid atque, nulla.
                   </p>
-                  <a class="btn btn-primary" href="./blog.html">Read more →</a>
+                  <a class="btn btn-primary" href="{{Route('blog')}}">Read more →</a>
                 </div>
               </div>
             </div>
@@ -152,4 +146,5 @@
         </div>
       </div>
     </div>
-    @endsection
+
+@endsection

@@ -1,16 +1,9 @@
-@extends('layouts.main')
-@section('title', 'Blog')
-  @push('styles')
-        <style>
-            .item {
-                color: blueviolet !important;
-            }
-        </style>
-   @endpush
+@extends('Layout.main')
+@section('title','Blog Page ')
+
 @section('content')
-    <!-- Page content-->
-    @include('components.button', ['val' => 'edit'])
-    <div class="container mt-5">
+
+<div class="container mt-5">
       <div class="row">
         <div class="col-lg-8">
           <!-- Post content-->
@@ -131,5 +124,4 @@
         </div>
       </div>
     </div>
-    <!-- Footer-->
 @endsection
