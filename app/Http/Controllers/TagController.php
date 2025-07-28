@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
@@ -12,7 +13,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tag = Tag::all();
+        return view('admin.tag.index', ['tagg' => $tag]);
     }
 
     /**
@@ -20,7 +22,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+         return view('admin.tag.create_edit');
     }
 
     /**
@@ -28,7 +30,28 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // name from form
+       $val= $request->validate([
+            'tag_name' => 'required|string|max:255',
+            'tag_status' => 'required',
+        ]);
+          
+        // $tag = new Tag();
+        // $tag->tag_name = $request->tag_name;
+        // $tag->tag_status = $request->tag_status;
+
+        // $tag->save();
+
+        Tag::create([
+            'tag_name'=>$val['tag_name'],
+            'tag_status'=>$val['tag_status']
+        ]);
+
+     //   $name = $request->input('tag_name'); //or
+     //  $name = $request->tag_name;
+
+
+        return redirect()->route('tag.index')->with('success', 'Tag created successfully.');
     }
 
     /**
@@ -42,24 +65,44 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tag $tag)
+    public function edit($id)
     {
-        //
+        $tag = Tag::findOrFail($id);
+
+        return view('admin.tag.edit', ['tag' => $tag]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tag $tag)
+    public function update(Request $request,$id,)
     {
-        //
+         $validate= $request->validate([
+            'tag_name' => 'required|string|max:255',
+            'tag_status' => 'required',
+          ]);
+        
+          $tag = Tag::findOrFail($id);
+
+          $tag->update($validate);
+
+      // update by using array
+        //   $tag->update([
+        //     'tag_name'=>$validate['tag_name'],
+        //     'tag_status'=>$validate['tag_status']
+        //   ]);
+
+      return redirect()->route('tag.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tag $tag)
+    public function destroy($id)
     {
-        //
+        $tag = Tag::findOrFail($id);
+        $tag->delete();
+
+        return redirect()->route('tag.index');
     }
 }

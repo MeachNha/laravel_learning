@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -17,11 +18,17 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    public $timestamps = false; // ✅ disables auto timestamping
     protected $fillable = [
         'name',
         'email',
         'password',
     ];
+      
+     public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

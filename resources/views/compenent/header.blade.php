@@ -36,10 +36,10 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <a class="dropdown-item" href="{{Route('category')}}">Category</a>
+                  <a class="dropdown-item" href="{{Route('category.index')}}">Category</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="{{Route('tag')}}">Tag</a>
+                  <a class="dropdown-item" href="{{Route('tag.index')}}">Tag</a>
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
