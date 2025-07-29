@@ -11,9 +11,19 @@ class TagController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(request $request)
     {
-        $tag = Tag::all();
+        // $tag = Tag::all();
+       
+        $select = $request->input('select',5);
+        $search = $request->input('search');
+
+         $query = Tag::query()->orderBy('id','desc');
+        if($search){
+            $query->where('tag_name','like', '%' . $search . '%');
+
+        }
+        $tag= $query->paginate($select)->appends($request->except('page') );
         return view('admin.tag.index', ['tagg' => $tag]);
     }
 

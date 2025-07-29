@@ -26,8 +26,8 @@
                 <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select name="cat_status" class="form-control">
-                    <option value="1" {{ $category->cat_status == 1 ? 'selected' : '' }}>Active</option>
-                    <option value="0" {{ $category->cat_status == 0 ? 'selected' : '' }}>Inactive</option>
+                    <option value="1" {{ $category->cat_status == '1' ? 'selected' : '' }}>Active</option>
+                    <option value="0" {{ $category->cat_status == '0' ? 'selected' : '' }}>Inactive</option>
                 </select>
              </div>
               <button type="submit" class="btn btn-primary mt-5">Edit</button>
