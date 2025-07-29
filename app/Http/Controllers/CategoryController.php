@@ -12,7 +12,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        //  $categories = Category::paginate(5);
+        return view('admin.category.index',
+         ['categories' => $categories]
+        );
     }
 
     /**
@@ -20,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.create_edit');
     }
 
     /**
@@ -28,7 +32,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'cat_name' => 'required|string|max:255',
+            'cat_od' => 'nullable|integer',
+            'cat_status' => 'required',
+        ]);
+          
+        $category = new Category();
+        $category->cat_name = $request->cat_name;
+        $category->cat_od = $request->cat_od;
+        $category->cat_status = $request->cat_status;
+
+        $category->save();
+
+        return redirect()->route('category.index')->with('success', 'Category created successfully.');
+        // return redirect('/category')->with('success', 'Category created successfully.');
     }
 
     /**
@@ -42,17 +60,41 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    // Show form with data for edit
+    //compact('category'):
+    // This is a PHP helper function that creates an array like this:
+    // ['category' => $category]
+   //It passes the $category data to the view, so in the Blade file, you can access it like {{ $category->cat_name }}, etc.
+
+
+    public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request,$id)
     {
-        //
+        $validated=$request->validate([
+            'cat_name' => 'required|string|max:255',
+            'cat_od' => 'nullable|integer',
+            'cat_status' => 'required',
+        ]);
+         
+        $category = Category::findOrFail($id);
+        $category->update($validated); 
+          
+        // $category ->update([
+        //     'cat_name' => $request->cat_name,
+        //     'cat_od' => $request->cat_od,
+        //     'cat_status' => $request->cat_status,
+        // ]);
+
+       
+        return redirect()->route('category.index')->with('success', 'Category updated successfully.');
     }
 
     /**
