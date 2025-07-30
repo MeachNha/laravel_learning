@@ -49,6 +49,7 @@ Route::controller(CategoryController::class)->group(function () {
     Route::post('admin/category/store','store')->name('category.store');
     Route::get('admin/category/{id}','edit')->name('category.edit');
     Route::patch('admin/category/{id}','update')->name('category_update.update');
+    Route::delete('admin/category/{id}','destroy')->name('category.destroy');
 
 });
 

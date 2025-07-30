@@ -10,11 +10,32 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
-        //  $categories = Category::paginate(5);
+        // $categories = Category::all();
+
+        // using by Query bulider
+        $search = $request->input('search');
+        $select = $request->input('select',5);
+
+         $query =Category::query()->orderBy('id','desc');  // same select*from category
+
+
+        
+         if ($search) {
+         $query->where('cat_name', 'like', '%' . $search . '%');  // same as WHERE tag_name LIKE '%search%'
+        //    $query->where('cat_name', 'like', '%' . $search . '%')->where('cat_status',1);
+        //   Category::query()->where('cat_name', $search );
+
+
+        //    select * from tbl where cat_name = $search ;
+         }
+         
+
+         $categories =$query->paginate($select)->appends($request->except('page') );
+
         return view('admin.category.index',
+
          ['categories' => $categories]
         );
     }
@@ -70,7 +91,10 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
+
+       // dd($category);
         return view('admin.category.edit', compact('category'));
+
     }
 
     /**
@@ -87,6 +111,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->update($validated); 
           
+
         // $category ->update([
         //     'cat_name' => $request->cat_name,
         //     'cat_od' => $request->cat_od,
@@ -100,8 +125,12 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category= Category::findOrFail($id);
+        $category->delete();
+        
+        return redirect()->route('category.index');
+
     }
 }
