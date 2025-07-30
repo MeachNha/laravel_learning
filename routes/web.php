@@ -4,6 +4,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\PostController;
 
 Route::get('/', function () {
     return view('index');
@@ -54,7 +55,6 @@ Route::controller(CategoryController::class)->group(function () {
 });
 
 Route::controller(TagController::class)->group(function () {
-   
     Route::get('admin/tag','index')->name('tag.index');
     Route::get('admin/tag/create','create')->name('tag.create');
 
@@ -64,13 +64,14 @@ Route::controller(TagController::class)->group(function () {
     Route::patch('admin/tag/{id}','update')->name('tag.update');
 
     Route::delete('admin/tag/{id}','destroy')->name('tag.destroy');
-    
-
-   
-
- 
- 
-  
+});
+Route::controller(PostController::class)->group(function () {
+    Route::get('admin/post','index')->name('post.index');
+    Route::get('admin/post/create','create')->name('post.create');
+    Route::post('admin/post/store','store')->name('post.store');
+    Route::get('admin/post/{id}','edit')->name('post.edit');
+    Route::patch('admin/post/{id}','update')->name('post.update');
+    Route::delete('admin/post/{id}','destroy')->name('post.destroy');
 });
 
 

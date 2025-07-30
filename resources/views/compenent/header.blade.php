@@ -43,7 +43,7 @@
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="{{Route('post')}}">Post</a>
+                  <a class="dropdown-item" href="{{Route('post.index')}}">Post</a>
                 </li>
               </ul>
             </li>
