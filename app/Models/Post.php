@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
@@ -16,6 +17,7 @@ class Post extends Model
         'title',
         'description',
         'published_at',
+        'img',
         'od',
         'status',
         'user_id',
@@ -23,19 +25,21 @@ class Post extends Model
     ];
 
 
-     public function users(): BelongsTo
+     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-     public function categories(): BelongsTo
+     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
-     public function tags(): BelongsTo
+    
+     public function tags(): BelongsToMany
     {
-        return $this->belongsTo(Tag::class);
+        return $this->belongsToMany(Tag::class);
     }
+
 
 
 }

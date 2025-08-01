@@ -3,7 +3,9 @@
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
+
 
 Route::get('/', function () {
     return view('index');
@@ -23,13 +25,13 @@ Route::get('blog', function () {
 // })->name('create_edit');
 
 
-Route::get('post', function () {
-    return view('admin/post/index');
-})->name('post');
+// Route::get('post', function () {
+//     return view('admin/post/index');
+// })->name('post');
 
-Route::get('create_edit_post', function () {
-    return view('admin/post/create_edit');
-})->name('create_edit_post');
+// Route::get('create_edit_post', function () {
+//     return view('admin/post/create_edit');
+// })->name('create_edit_post');
 
 // Route::get('tag', function () {
 //     return view('admin/tag/index');
@@ -64,13 +66,19 @@ Route::controller(TagController::class)->group(function () {
     Route::patch('admin/tag/{id}','update')->name('tag.update');
 
     Route::delete('admin/tag/{id}','destroy')->name('tag.destroy');
+
+});
+
+Route::controller(PostController::class)->group(function(){
+     Route::get('admin/post','index')->name('post.index');
+     Route::get('admin/post/create','create')->name('post.create');
     
+     Route::post('admin/post/store','store')->name('post.store');
 
-   
+     Route::get('admin/post/{id}','edit')->name('post.edit');
+     Route::patch('admin/post/{id}','update')->name('post.update');
+      Route::delete('admin/post/{id}','destroy')->name('post.destroy');
 
- 
- 
-  
 });
 
 

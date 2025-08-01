@@ -57,7 +57,7 @@
               <tbody>
                @foreach ($categories as $cat)
                   <tr>
-                      <td>{{ $cat->id }}</td>
+                      <td>{{  $loop->iteration }}</td>
                       <td>{{ $cat->cat_name }}</td>
                       <td>{{ $cat->cat_od }}</td>
                       <td>
@@ -75,7 +75,7 @@
                             @csrf
                             @method('Delete')
 
-                              <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                              <button class="btn btn-danger btn-sm"  type="submit">Delete</button>
                           </form>
                       </td>
                   </tr>
