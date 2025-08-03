@@ -12,7 +12,15 @@ class PostController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
+    { 
+            if(Auth::user()->role=='admin'){
+                $posts = Post::orderBy('id', 'desc')->paginate(5);
+                return view('admin.post.index', compact('posts'));
+            }else
+            if(Auth::user()->role=='user'){
+                $posts = Post::where('user_id', Auth::id())->orderBy('id', 'desc')->paginate(5);
+                return view('admin.post.index', compact('posts'));
+            }
             $search = $request->input('search');
             $select = $request->input('select',5);
             $query =Post::query()->orderBy('id','desc');  // same select*from category

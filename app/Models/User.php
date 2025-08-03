@@ -21,7 +21,6 @@ class User extends Authenticatable
     public $timestamps = false; // ✅ disables auto timestamping
     protected $fillable = [
         'name',
-        'email',
         'password',
     ];
       

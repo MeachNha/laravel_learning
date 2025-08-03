@@ -7,7 +7,7 @@
       <div class="row">
         <div class="d-flex justify-content-between mb-2">
           <h3>Category List</h3>
-          <a class="btn btn-success" href="{{Route('create_edit.create')}}" role="button">Create</a>
+          <a class="btn btn-success" href="{{Route('category.create')}}" role="button">Create</a>
         </div>
         
     

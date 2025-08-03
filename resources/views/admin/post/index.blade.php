@@ -53,6 +53,7 @@
                   <th>Img</th>
                   <th>Status</th>
                   <th>Tag</th>
+                  <th>categoryname</th>
                   <th style="width: 100px">Action</th>
                 </tr>
               </thead>
@@ -70,6 +71,7 @@
                           @endforeach
                        </ul>
                       </td>
+                      <td>{{$post->category->cat_name}}</td>
                       <td>
                         @if($post->status == 1)
                            <span class="badge bg-success">Active</span>
