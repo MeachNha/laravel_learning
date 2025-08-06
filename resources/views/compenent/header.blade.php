@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="/index.html">Blog Name</a>
+        <a class="navbar-brand" href="{{Route('index')}}">Blog Name</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -14,15 +14,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Category 1</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Category 2</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Category 3</a>
-            </li>
+            {{-- @foreach ($categories as $cat)
+              <li class="nav-item">
+                <a class="nav-link active" href="">{{ $cat->cat_name }}</a>
+              </li>
+            @endforeach --}}
+           
+             @if (Auth::check())
+              <li class=" border border-1 border-warning rounded px-3">
+                <a class="nav-link active" href="{{ route('logout') }}">Logout</a>
+              </li>
+              @endif
+            
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"

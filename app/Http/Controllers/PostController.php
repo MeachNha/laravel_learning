@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -14,24 +17,64 @@ class PostController extends Controller
     public function index(Request $request)
     {
         // $po = Post::all();
-
+         $categories = Category::all();
           $search = $request->input('search');
           $select = $request->input('select');
-         $query =Post::query()->orderBy('id','desc');  
+        
+          $query =Post::query()->orderBy('id','desc')->where('user_id',Auth::User()->id);  
 
         if ($search) {
          $query->where('title', 'like', '%' . $search . '%');  
        
          }
          
+         
 
          $po =$query->paginate($select)->appends($request->except('page') );
 
          return view('admin.post.index',
 
-         ['posts' => $po]
+         ['posts' => $po,'categories' => $categories]
         );
     }
+
+// show data in frontend
+ public function showdata(){
+     
+         $categories = Category::all();
+         $tags = Tag::all();
+        
+      
+    // Get all remaining posts except the latest one
+        $lastdata = Post::where('status', 1)
+           ->orderBy('od','desc')
+           ->first();
+   
+      //get() Gets all matching records as a collection.    
+         $po = Post::where('status', 1)
+            ->where('id', '!=', $lastdata->id) // Exclude the latest post
+            ->orderBy('od', 'desc')
+            ->get();
+  
+         return view('index',
+
+         ['mydata' => $po,'lastdata'=>$lastdata,'categorie' => $categories,'tags'=> $tags]
+        );
+}
+
+
+
+    // show page detail
+ 
+    public function showveiwdetail($id){
+
+             $posts = Post::findOrFail($id);
+            $tags = Tag::all();
+              
+             
+            return view('blog',['post'=>$posts,'tags'=> $tags]);
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -46,12 +89,12 @@ class PostController extends Controller
 
         //dd($posts);
         return view('admin.post.create_edit',['tags'=>$tags,'cats'=>$cats,'post'=>$post]);
-    }
+}
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+ public function store(Request $request)
     {
        $val = $request->validate([
             'title' => 'required|string|max:255',
@@ -77,7 +120,7 @@ class PostController extends Controller
             $post->published_at = $request->published_at;
             $post->od = $request->od;
             $post->status= $request->status;
-            $post->user_id=1;
+            $post->user_id=Auth::id();
             $post->category_id=$request->category_id;
             $post->img= $part;
 
@@ -95,7 +138,7 @@ class PostController extends Controller
           $post->tags()->sync($request->tags);
 
          return redirect()->route('post.index')->with('success', 'post created successfully.');
-    }
+}
 
     /**
      * Display the specified resource.
@@ -108,19 +151,22 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+ public function edit($id)
     {   
          $posts = Post::findOrFail($id);
          $tags = Tag::all();
          $cats = Category::all();
-
+          
         return view('admin.post.edit',['tags'=>$tags,'cats'=>$cats,'posts'=>$posts]);
-    }
+}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+ 
+
+
+  public function update(Request $request,$id)
     {
         $val = $request->validate([
             'title' => 'required|string|max:255',

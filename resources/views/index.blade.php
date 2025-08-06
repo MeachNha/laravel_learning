@@ -2,7 +2,20 @@
 @section('title','First page ')
 
 @section('content')
- 
+  
+<style>
+  .imgbox{
+    width: 100%;
+    height:230px;
+
+  }
+  .myimg{
+    width: 100%;
+    height:100%;
+    object-fit: cover;  
+  }
+</style>
+
  <!-- Page content-->
     <div class="container mt-5">
       <div class="row">
@@ -12,67 +25,54 @@
           <div class="row">
             <div class="col-lg-12">
               <!-- Featured blog post-->
-              <div class="card mb-4">
-                <a href="{{Route('blog')}}"
-                  ><img
+              <div class="card mb-4 mt-6">
+                <a href="{{ route('blog',$lastdata->id) }}">
+                  <img
                     class="card-img-top"
-                    src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg"
+                    src="{{ asset('storage/' . $lastdata->img) }}"
                     alt="..."
-                /></a>
+                  />
+                </a>
                 <div class="card-body">
-                  <div class="small text-muted">January 1, 2022</div>
-                  <h2 class="card-title">Featured Post Title</h2>
+                  <div class="small text-muted">{{ $lastdata->published_at }}</div>
+                 
+                  <h2 class="card-title">{{ $lastdata->title }}</h2>
                   <p class="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a
-                    laboriosam. Dicta expedita corporis animi vero voluptate
-                    voluptatibus possimus, veniam magni quis!
+                    {{ Str::limit($lastdata->description, 150) }}
                   </p>
-                  <a class="btn btn-primary" href="{{Route('blog')}}">Read more →</a>
+                  <a class="btn btn-primary" href="{{ route('blog',$lastdata->id) }}">Read more →</a>
                 </div>
               </div>
             </div>
+
+            
+
+           
+         @foreach ($mydata as $data)
             <div class="col-lg-6">
               <!-- Blog post-->
               <div class="card mb-4">
-                <a href="{{Route('blog')}}"
-                  ><img
-                    class="card-img-top"
-                    src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-                    alt="..."
-                /></a>
+                  <a href="{{Route('blog',$data->id)}}" class="imgbox">
+                    <img
+                    class="card-img-top myimg"
+                    src="{{ asset('storage/' . $data->img) }}"
+                    alt="..."   />
+                  </a>
                 <div class="card-body">
-                  <div class="small text-muted">January 1, 2022</div>
-                  <h2 class="card-title h4">Post Title</h2>
+                  <div class="small text-muted">{{ $data->published_at }}</div>
+                 
+                  <h2 class="card-title h4">{{ $data->title }}</h2>
                   <p class="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Reiciendis aliquid atque, nulla.
+                    {{Str::limit($data->description, 100)}}
                   </p>
-                  <a class="btn btn-primary" href="{{Route('blog')}}">Read more →</a>
+                  <a class="btn btn-primary" href="{{Route('blog',$data->id)}}">Read more →</a>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
-              <!-- Blog post-->
-              <div class="card mb-4">
-                <a href="{{Route('blog')}}"
-                  ><img
-                    class="card-img-top"
-                    src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-                    alt="..."
-                /></a>
-                <div class="card-body">
-                  <div class="small text-muted">January 1, 2022</div>
-                  <h2 class="card-title h4">Post Title</h2>
-                  <p class="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Reiciendis aliquid atque, nulla.
-                  </p>
-                  <a class="btn btn-primary" href="{{Route('blog')}}">Read more →</a>
-                </div>
-              </div>
-            </div>
-          </div>
+       @endforeach
+    
+    
+      </div>
           <!-- Pagination-->
           <nav aria-label="Pagination">
             <hr class="my-0" />
@@ -97,6 +97,8 @@
             </ul>
           </nav>
         </div>
+
+
         <!-- Side widgets-->
         <div class="col-lg-4">
           <!-- Search widget-->
@@ -126,20 +128,16 @@
             <div class="card-header">Tags</div>
             <div class="card-body">
               <div class="row">
+                  @foreach ($tags as $tag)
                 <div class="col-sm-6">
                   <ul class="list-unstyled mb-0">
-                    <li><a href="#!">Web Design</a></li>
-                    <li><a href="#!">HTML</a></li>
-                    <li><a href="#!">Freebies</a></li>
+                       <li>
+                        <a style="text-decoration: none; color:black; font-size:18px;" href="#!">{{$tag->tag_name}}</a>
+                      </li>
                   </ul>
                 </div>
-                <div class="col-sm-6">
-                  <ul class="list-unstyled mb-0">
-                    <li><a href="#!">JavaScript</a></li>
-                    <li><a href="#!">CSS</a></li>
-                    <li><a href="#!">Tutorials</a></li>
-                  </ul>
-                </div>
+                 @endforeach
+               
               </div>
             </div>
           </div>

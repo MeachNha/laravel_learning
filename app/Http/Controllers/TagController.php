@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use App\Models\Category;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class TagController extends Controller
     public function index(request $request)
     {
         // $tag = Tag::all();
-       
+         $categories = Category::all();
         $select = $request->input('select',5);
         $search = $request->input('search');
 
@@ -24,7 +25,7 @@ class TagController extends Controller
 
         }
         $tag= $query->paginate($select)->appends($request->except('page') );
-        return view('admin.tag.index', ['tagg' => $tag]);
+        return view('admin.tag.index', ['tagg' => $tag,'categories' => $categories]);
     }
 
     /**
