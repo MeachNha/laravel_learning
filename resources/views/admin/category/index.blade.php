@@ -55,7 +55,7 @@
                 </tr>
               </thead>
               <tbody>
-               @foreach ($categories as $cat)
+               @foreach ($cats as $cat)
                   <tr>
                       <td>{{  $loop->iteration }}</td>
                       <td>{{ $cat->cat_name }}</td>
@@ -85,7 +85,7 @@
             </table>   
              <!-- Pagination -->
               <div class="mt-3">
-                    {{ $categories->appends(['search' => request('search')])->links() }}
+                    {{ $cats->appends(['search' => request('search')])->links() }}
               </div>
           </div>
         </div>

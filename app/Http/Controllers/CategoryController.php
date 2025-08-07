@@ -18,7 +18,7 @@ class CategoryController extends Controller
         $search = $request->input('search');
         $select = $request->input('select',5);
 
-         $query =Category::query()->orderBy('id','desc');  // same select*from category
+         $query =Category::query();  // same select*from category
 
 
         
@@ -36,17 +36,20 @@ class CategoryController extends Controller
 
         return view('admin.category.index',
 
-         ['categories' => $categories]
+         ['cats' => $categories]
         );
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+     public function create()
     {
-        return view('admin.category.create_edit');
+         $category = Category::all(); 
+        
+         return view('admin.category.create_edit', ['cats' => $category]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -90,10 +93,18 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
+       
+            $category = Category::findOrFail($id);
+            $allCategories = Category::all();
 
+        //  $cats = Category::all();
        // dd($category);
-        return view('admin.category.edit', compact('category'));
+          
+        return view('admin.category.edit',
+        [
+             'cat' => $category,    // one item
+             'cats' => $allCategories // collection used in header
+        ]);
 
     }
 

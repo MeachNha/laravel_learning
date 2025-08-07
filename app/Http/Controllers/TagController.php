@@ -25,15 +25,19 @@ class TagController extends Controller
 
         }
         $tag= $query->paginate($select)->appends($request->except('page') );
-        return view('admin.tag.index', ['tagg' => $tag,'categories' => $categories]);
+
+        //return view('admin.tag.index', ['tagg' => $tag,'categories' => $categories]);
+       return view('admin.tag.index', ['tagg' => $tag,'cats' => $categories]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-         return view('admin.tag.create_edit');
+    {    
+         $categories = Category::all();
+
+         return view('admin.tag.create_edit',['cats' => $categories]);
     }
 
     /**
@@ -79,8 +83,9 @@ class TagController extends Controller
     public function edit($id)
     {
         $tag = Tag::findOrFail($id);
+        $categories = Category::all();
 
-        return view('admin.tag.edit', ['tag' => $tag]);
+        return view('admin.tag.edit', ['tag' => $tag,'cats'=>$categories]);
     }
 
     /**

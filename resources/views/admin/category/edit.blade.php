@@ -11,23 +11,23 @@
         <!-- Blog entries-->
         <div class="col-lg-12">
           <div class="card p-3">
-            <form method="POST" action="{{ route('category.edit', $category->id) }}">
+            <form method="POST" action="{{ route('category.edit', $cat->id) }}">
                @csrf
                  {{-- PATCH jea ka comban knea POST hz ng GET --}}
                  @method('PATCH')
               <div class="mb-3">
                 <label for="tag" class="form-label">Category Name</label>
-                <input type="text" class="form-control" id="tag" value="{{$category->cat_name}}"  name="cat_name" />
+                <input type="text" class="form-control" id="tag" value="{{$cat->cat_name}}"  name="cat_name" />
               </div>
               <div class="mb-3">
                 <label for="tag" class="form-label">Category od</label>
-                <input type="text" class="form-control" id="tag" value="{{$category->cat_od}}"  name="cat_od" />
+                <input type="text" class="form-control" id="tag" value="{{$cat->cat_od}}"  name="cat_od" />
               </div>
                 <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select name="cat_status" class="form-control">
-                    <option value="1" {{ $category->cat_status == '1' ? 'selected' : '' }}>Active</option>
-                    <option value="0" {{ $category->cat_status == '0' ? 'selected' : '' }}>Inactive</option>
+                    <option value="1" {{ $cat->cat_status == '1' ? 'selected' : '' }}>Active</option>
+                    <option value="0" {{ $cat->cat_status == '0' ? 'selected' : '' }}>Inactive</option>
                 </select>
              </div>
               <button type="submit" class="btn btn-primary mt-5">Edit</button>

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
-
+use App\Http\Controllers\FetchdatainfrontendController;
 
 // Route::get('/', function () {
 //     return view('index');
@@ -16,8 +16,7 @@ use App\Http\Controllers\TagController;
 // })->name('blog');
 
 
-Route::get('/',[PostController::class,'showdata'])->name('index');
-Route::get('blog/{id}', [PostController::class, 'showveiwdetail'])->name('blog');
+
 
 
 
@@ -69,7 +68,8 @@ Route::get('blog/{id}', [PostController::class, 'showveiwdetail'])->name('blog')
 // });
 
 
-
+Route::get('/',[FetchdatainfrontendController::class,'showdata'])->name('index');
+Route::get('blog/{id}', [FetchdatainfrontendController::class, 'showveiwdetail'])->name('blog');
 
 
 
@@ -123,6 +123,7 @@ Route::prefix('admin')->middleware('auth')->group(function(){
 
   });
 
+  
 });
 
 

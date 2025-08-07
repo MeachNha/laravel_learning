@@ -28,52 +28,50 @@ class PostController extends Controller
        
          }
          
-         
-
          $po =$query->paginate($select)->appends($request->except('page') );
 
          return view('admin.post.index',
 
-         ['posts' => $po,'categories' => $categories]
+         ['posts' => $po,'cats' => $categories]
         );
     }
 
 // show data in frontend
- public function showdata(){
+//  public function showdata(){
      
-         $categories = Category::all();
-         $tags = Tag::all();
+//          $categories = Category::all();
+//          $tags = Tag::all();
         
       
-    // Get all remaining posts except the latest one
-        $lastdata = Post::where('status', 1)
-           ->orderBy('od','desc')
-           ->first();
+//     // Get all remaining posts except the latest one
+//         $lastdata = Post::where('status', 1)
+//            ->orderBy('od','desc')
+//            ->first();
    
-      //get() Gets all matching records as a collection.    
-         $po = Post::where('status', 1)
-            ->where('id', '!=', $lastdata->id) // Exclude the latest post
-            ->orderBy('od', 'desc')
-            ->get();
-  
-         return view('index',
+//       //get() Gets all matching records as a collection.    
+//          $po = Post::where('status', 1)
+//             ->where('id', '!=', $lastdata->id) // Exclude the latest post
+//             ->orderBy('od', 'desc')
+//             ->get();
+           
+//          return view('index',
 
-         ['mydata' => $po,'lastdata'=>$lastdata,'categorie' => $categories,'tags'=> $tags]
-        );
-}
+//          ['mydata' => $po,'lastdata'=>$lastdata,'categories' => $categories,'tags'=> $tags]
+//         );
+// }
 
 
 
     // show page detail
  
-    public function showveiwdetail($id){
+//     public function showveiwdetail($id){
 
-             $posts = Post::findOrFail($id);
-            $tags = Tag::all();
+//              $posts = Post::findOrFail($id);
+//              $tags = Tag::all();
               
              
-            return view('blog',['post'=>$posts,'tags'=> $tags]);
-}
+//             return view('blog',['post'=>$posts,'tags'=> $tags]);
+// }
 
 
     /**
@@ -89,6 +87,7 @@ class PostController extends Controller
 
         //dd($posts);
         return view('admin.post.create_edit',['tags'=>$tags,'cats'=>$cats,'post'=>$post]);
+       
 }
 
     /**
@@ -174,7 +173,8 @@ class PostController extends Controller
             'published_at' => 'required|date',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:20240',
             'od' => 'nullable|integer',
-            'status' => 'required'
+            'status' => 'required',
+            'category_id' => 'required|exists:categories,id'
             ]);
         
                  $posts = Post::findOrFail($id);
