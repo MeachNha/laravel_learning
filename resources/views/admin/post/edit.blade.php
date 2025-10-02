@@ -81,7 +81,7 @@
             <label for="category_id" class="form-label">Category</label>
             <select class="form-select" name="category_id" id="category_id">
                 <option disabled>Select Category</option>
-                @foreach ($cats as $cat)
+                 @foreach ($cats as $cat)
                     <option value="{{ $cat->id }}" {{ $posts->category_id == $cat->id ? 'selected' : '' }}>
                         {{ $cat->cat_name }}
                     </option>

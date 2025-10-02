@@ -25,7 +25,8 @@ class FetchdatainfrontendController extends Controller
            ->where('status', 1)
            ->orderBy('od','desc')
            ->first();
-
+      
+           
    
       //get() Gets all matching records as a collection.    
          // $po = Post::where('status', 1)

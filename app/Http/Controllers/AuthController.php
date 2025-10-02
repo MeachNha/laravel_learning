@@ -29,12 +29,14 @@ class AuthController extends Controller
         $user = new User(); 
         $user->name = $request->name;
         $user->password= $request->password;
+       
 
         $user->save();
 
         Auth::login($user);
         $request->session()->regenerate();
         return redirect()->intended(); // intended ng jea method dl vea dg tha yg jg tv route name ey vea dg mg 
+   
     }
 
 

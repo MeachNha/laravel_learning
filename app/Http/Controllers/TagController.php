@@ -29,7 +29,7 @@ class TagController extends Controller
         //return view('admin.tag.index', ['tagg' => $tag,'categories' => $categories]);
        return view('admin.tag.index', ['tagg' => $tag,'cats' => $categories]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */

@@ -25,6 +25,7 @@
         <h3>Login</h3>
         <form method="POST" action="{{Route('login.submit')}}">
             @csrf
+        
           <div class="mb-3">
             <label for="email" class="form-label">Name</label>
            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">

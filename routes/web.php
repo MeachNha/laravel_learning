@@ -83,9 +83,10 @@ Route::post('/register/store',[AuthController::class,'store'])->name('register.s
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::prefix('admin')->middleware('auth')->group(function(){
-    
+      
   Route::controller(CategoryController::class)->group(function () {
-   Route::get('category','index')->name('category.index');
+
+    Route::get('category','index')->name('category.index');
     Route::get('category/create','create')->name('create_edit.create');
 
     Route::post('category/store','store')->name('category.store');
